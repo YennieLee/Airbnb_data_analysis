@@ -1,6 +1,6 @@
 # Airbnb_data_analysis
 
-### 🔍 Overview
+## 🔍 Overview
 
 This project aims to help **Airbnb** establish a business strategy through data-driven analysis.
 
@@ -14,7 +14,7 @@ Finally, I designed a **prototype service** to help Airbnb hosts maximize their 
 
 ---
 
-### 🗂 About the Dataset
+## 🗂 About the Dataset
 
 1. **Airbnb listing data in Prague, 2024 (Kaggle)**
     - **Number of features:** 75
@@ -32,7 +32,7 @@ Finally, I designed a **prototype service** to help Airbnb hosts maximize their 
 
 ---
 
-### 📚 Python Libraries
+## 📚 Python Libraries
 
 - **Basic :** `os`, `datetime`
 - **Web scraping :** `selenium`
@@ -43,7 +43,7 @@ Finally, I designed a **prototype service** to help Airbnb hosts maximize their 
 
 ---
 
-### 📊 EDA (Exploratory Data Analysis)
+## 📊 EDA (Exploratory Data Analysis)
 
 The goal of EDA was to identify the factors that make listings successful.
 
@@ -72,7 +72,7 @@ Key findings:
 
 ---
 
-### 💬 NLP Analysis
+## 💬 NLP Analysis
 
 To address cleanliness-related issues, I conducted text mining using 1,000 posts from the official **Airbnb Host Community Forum** containing the keyword *“cleaning.”*
 
@@ -107,13 +107,13 @@ This service would:
 
 ---
 
-### 🤖 Machine Learning
+## 🤖 Machine Learning
 
 Since **price** significantly affects review scores, I built a model to help hosts set reasonable, data-driven prices.
 
-### 🔧 ML Process
 
-1. **Preprocessing**
+### 🔧 Preprocessing for ML
+1. **Data Cleaning**
     - Removed unnecessary columns
     - Filtered inactive hosts using the `availability_365` column
         - `365` → never booked (too expensive or inactive host)
@@ -127,16 +127,18 @@ Since **price** significantly affects review scores, I built a model to help hos
             - *Nice-to-have comforts* (e.g., balcony, parking, TV)
             - *Target-specific* (e.g., crib, workspace, pet-friendly)
         - Columns with low statistical significance were excluded via t-tests.
-3. **Data Splitting**
+
+### ⚙ ML Process
+1. **Data Splitting**
     - 80% training / 20% testing
-4. **Missing Value Imputation**
+2. **Missing Value Imputation**
     - Imputed `bathrooms`, `bedrooms`, `beds` using group means by `accommodates`
     - Imputed host-related features (acceptance, response, review scores) by `host_is_superhost`
-5. **Encoding**
+3. **Encoding**
     - Applied one-hot encoding to categorical features (`room_type`, `neighbourhood_cleansed`, `nearest_center`)
-6. **Scaling**
+4. **Scaling**
     - Scaled numerical features using `StandardScaler`
-7. **Log Transformation**
+5. **Log Transformation**
     - Applied log transformation to `price` to reduce skewness
       
         <table>
@@ -146,60 +148,70 @@ Since **price** significantly affects review scores, I built a model to help hos
           </tr>
         </table>
 
-8. **Base Model Testing**
+6. **Base Model Testing**
     - Tested 9 regression models with default parameters
     - Selected top 3 (XGBoost, CatBoost, LightGBM) based on R², RMSE, and MAE
       
       |Model|RMSE|MAE|R²|
       |------|---|---|---|
-      |CatBoost|1,251.56|691.67|0.6516|
-      |XGBoost|1,276.68|718.66|0.6375|
-      |LightGBM|1,298.95|723.18|0.6247|
-      |Random Forest|1,364.13|756.92|0.5861|
-      |SVM|1,404.76|763.13|0.5611|
-      |Gradient Boost|1,453.81|826.05|0.5299|
-      |KNN|1,589.67	|921.52|0.4379|
-      |AdaBoost|1,721.91|1,096.47|0.3405|
-      |Decision Tree|1,824.22|1,085.38|0.2598|
+      |CatBoost|1,252|692|0.6516|
+      |XGBoost|1,277|719|0.6375|
+      |LightGBM|1,299|723|0.6247|
+      |Random Forest|1,364|757|0.5861|
+      |SVM|1,405|763|0.5611|
+      |Gradient Boost|1,454|826|0.5299|
+      |KNN|1,590|922|0.4379|
+      |AdaBoost|1,722|1,096|0.3405|
+      |Decision Tree|1,824|1,085|0.2598|
 
-9. **Base Model Optimization**
+7. **Base Model Optimization**
     - Tuned hyperparameters using **Optuna** for efficiency over grid/random search
-10. **Meta Model Selection**
+      
+      |Model|RMSE|MAE|R²|
+      |------|---|---|---|
+      |LightGBM|1208|664|0.6749|
+      |XGBoost|1215|656|0.6715|
+      |CatBoost|1232|675|0.6623|
+      
+8. **Meta Model Selection**
     - Compared Ridge, Lasso, ElasticNet, Gradient Boost, and Random Forest as meta models
-    - Chose **Gradient Boost** for its strong performance with log-transformed targets
+    - Chose **Ridge** for its strong performance and robustness against multicollinearity
   
       |Model|RMSE|MAE|R²|
       |------|---|---|---|
-      |Gradient Boost|1199.15|658.04|0.6802|
-      |Ridge|1204.02|650.24|0.6776|
-      |Elastic Net|1204.97|650.38|0.6770|
-      |Lasso|1205.14|650.26|0.6770|
-      |Random Forest|1234.69|699.61|0.6609|
+      |Ridge|1198|645|0.6808|
+      |Elastic Net|1198|645|0.6805|
+      |Lasso|1199|650|0.6802|
+      |Gradient Boost|1207|660|0.6759|
+      |Random Forest|1266|715|0.6436|
   
-11. **Meta model Optimization**
-      - Tuned hyperparameters using Optuna for the meta model **(Gradient Boost)**
-12. **Final Model**
-    - Stacking Ensemble with **XGBoost**, **CatBoost**, and **LightGBM** as base models and **Gradient Boost** as the meta model
+9. **Meta model Optimization**
+      - Tuned hyperparameters using Optuna for the meta model **(Ridge)**
+10. **Final Model**
+    - Stacking Ensemble with **XGBoost**, **CatBoost**, and **LightGBM** as base models and **Ridge** as the meta model
     - **Final Model Performance:**
         - RMSE: ~1190
-        - MAE: ~650
-        - R²: ~0.683
+        - MAE: ~645
+        - R²: ~0.684
 
 ---
 
-### 📈 Model Insights
+## 📈 Model Insights
 
 1. **Feature Importance:**
     - Top 3: `availability_365`, `host_duration`, `nearby_avg_price`
     - Interpretation: booking activity, host experience, and local market influence price.
       
-      <img width="790" height="590" alt="image" src="https://github.com/user-attachments/assets/2504bf45-0055-4e05-a1e0-c65a4515e057" />
+      <img width="790" height="590" alt="image" src="https://github.com/user-attachments/assets/212e411d-6f8d-4674-a659-6c48a5625fa8" />
+
+
 
 2. **Permutation Importance:**
     - Top 3: `accommodates`, `nearby_avg_price`, `booking_rate`
     - Interpretation: size, local market, and popularity predict price accuracy.
       
-      <img width="790" height="590" alt="image" src="https://github.com/user-attachments/assets/fb9925a5-fe46-4130-9cc0-08d4744157f0" />
+      <img width="790" height="590" alt="image" src="https://github.com/user-attachments/assets/9d3728e9-2d9b-4b4f-a343-df3403f8433c" />
+
 
 3. **SHAP Values:**
     - Positive correlation: `accommodates`, `nearby_avg_price`
@@ -212,7 +224,7 @@ Since **price** significantly affects review scores, I built a model to help hos
 
 ---
 
-### 💡 Prototype Service
+## 💡 Prototype Service
 
 Based on the machine learning insights, I found a clear tendency that listings with certain amenities tend to have higher prices on average.
     <table>
