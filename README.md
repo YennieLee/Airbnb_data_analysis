@@ -138,53 +138,97 @@ Since **price** significantly affects review scores, I built a model to help hos
     - Scaled numerical features using `StandardScaler`
 7. **Log Transformation**
     - Applied log transformation to `price` to reduce skewness
+      
+        <table>
+          <tr>
+            <td><img src="https://github.com/user-attachments/assets/735daff4-9dee-4f53-bac4-4be29ede8e4e" alt="image1"></td>
+            <td><img src="https://github.com/user-attachments/assets/e91b21d4-5d43-4e88-b9fd-0531c11b74fc" alt="image2"></td>
+          </tr>
+        </table>
+
 8. **Base Model Testing**
     - Tested 9 regression models with default parameters
     - Selected top 3 (XGBoost, CatBoost, LightGBM) based on R², RMSE, and MAE
-9. **Model Optimization**
+      
+      |Model|RMSE|MAE|R²|
+      |------|---|---|---|
+      |CatBoost|1,251.56|691.67|0.6516|
+      |XGBoost|1,276.68|718.66|0.6375|
+      |LightGBM|1,298.95|723.18|0.6247|
+      |Random Forest|1,364.13|756.92|0.5861|
+      |SVM|1,404.76|763.13|0.5611|
+      |Gradient Boost|1,453.81|826.05|0.5299|
+      |KNN|1,589.67	|921.52|0.4379|
+      |AdaBoost|1,721.91|1,096.47|0.3405|
+      |Decision Tree|1,824.22|1,085.38|0.2598|
+
+9. **Base Model Optimization**
     - Tuned hyperparameters using **Optuna** for efficiency over grid/random search
 10. **Meta Model Selection**
-- Compared Ridge, Lasso, ElasticNet, Gradient Boost, and Random Forest as meta models
-- Chose **Ridge** for its strong performance and robustness against multicollinearity
-11. **Final Model**
-- Stacking Ensemble with **XGBoost**, **CatBoost**, and **LightGBM** as base models and **Ridge** as the meta model
-
-**Final Model Performance:**
-
-- RMSE: ~1220
-- MAE: ~670
-- R²: ~0.67
+    - Compared Ridge, Lasso, ElasticNet, Gradient Boost, and Random Forest as meta models
+    - Chose **Gradient Boost** for its strong performance with log-transformed targets
+  
+      |Model|RMSE|MAE|R²|
+      |------|---|---|---|
+      |Gradient Boost|1199.15|658.04|0.6802|
+      |Ridge|1204.02|650.24|0.6776|
+      |Elastic Net|1204.97|650.38|0.6770|
+      |Lasso|1205.14|650.26|0.6770|
+      |Random Forest|1234.69|699.61|0.6609|
+  
+11. **Meta model Optimization**
+      - Tuned hyperparameters using Optuna for the meta model **(Gradient Boost)**
+12. **Final Model**
+    - Stacking Ensemble with **XGBoost**, **CatBoost**, and **LightGBM** as base models and **Gradient Boost** as the meta model
+    - **Final Model Performance:**
+        - RMSE: ~1190
+        - MAE: ~650
+        - R²: ~0.683
 
 ---
 
 ### 📈 Model Insights
 
 1. **Feature Importance:**
-    - Top 3: `host_duration`, `availability_365`, `nearby_avg_price`
-    - Interpretation: host experience, booking activity, and local market influence price.
+    - Top 3: `availability_365`, `host_duration`, `nearby_avg_price`
+    - Interpretation: booking activity, host experience, and local market influence price.
+      
+      <img width="790" height="590" alt="image" src="https://github.com/user-attachments/assets/2504bf45-0055-4e05-a1e0-c65a4515e057" />
+
 2. **Permutation Importance:**
     - Top 3: `accommodates`, `nearby_avg_price`, `booking_rate`
     - Interpretation: size, local market, and popularity predict price accuracy.
+      
+      <img width="790" height="590" alt="image" src="https://github.com/user-attachments/assets/fb9925a5-fe46-4130-9cc0-08d4744157f0" />
+
 3. **SHAP Values:**
     - Positive correlation: `accommodates`, `nearby_avg_price`
     - Negative correlation: `booking_rate`, `number_of_reviews`
     - Interpretation: larger or better-located listings cost more, while overly expensive ones tend to have lower bookings and reviews.
-
+      
+      <img width="781" height="740" alt="image" src="https://github.com/user-attachments/assets/d52a9fe3-4809-4c32-aa7c-d4e3b5b8f4ff" />
+        
 ✅ This model helps hosts **set data-informed prices**, improving perceived *value* and *review scores*.
 
 ---
 
 ### 💡 Prototype Service
 
-Based on the ML insights, I also designed a **prototype web service** for hosts.
+Based on the machine learning insights, I found a clear tendency that listings with certain amenities tend to have higher prices on average.
+    <table>
+      <tr>
+        <td><img src="https://github.com/user-attachments/assets/d22f8d07-1fd6-4789-bea6-e1b4151ade92" alt="image1"></td>
+        <td><img src="https://github.com/user-attachments/assets/cbd6c9be-830c-48eb-ae10-f8fb12b95b61" alt="image2"></td>
+        <td><img src="https://github.com/user-attachments/assets/36ce760c-3402-4196-9234-9beeaad958c7" alt="image3"></td>
+      </tr>
+    </table>
 
-The service provides an **“insight report”** showing how small upgrades (e.g., adding a workspace or baby amenities) can increase potential revenue.
+Using these findings, I designed a prototype web service that provides hosts with an “insight report” — showing how small upgrades can increase their potential revenue.
 
-Hosts can:
-
+Through this service, hosts can:
 - Input their listing details
-- Receive a **recommended price**
-- Simulate how adding certain amenities would affect profit
-- Compare price gaps with similar listings that have those amenities
+- Receive a data-driven recommended price
+- Simulate how adding specific amenities would affect profit
+- Compare price gaps with similar listings that already have those amenities
 
-This tool can help hosts **boost both revenue and listing quality**.
+This tool helps hosts boost both revenue and listing quality through data-informed improvements.
