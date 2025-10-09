@@ -65,7 +65,7 @@ Key findings:
    <img width="673" height="466" alt="image" src="https://github.com/user-attachments/assets/2644d957-3141-4f60-bb06-7274877204f9" />
 
 4.  From regression analysis, **value** and **cleanliness** were the two most influential factors affecting the overall score.
-   <img width="855" height="466" alt="image" src="https://github.com/user-attachments/assets/699af547-1f7c-426d-b2b1-a486256586ae" />
+       <img width="855" height="466" alt="image" src="https://github.com/user-attachments/assets/699af547-1f7c-426d-b2b1-a486256586ae" />
 
 
 👉 Based on these results, I focused on **price (value)** and **cleanliness** for deeper analysis and actionable insights.
