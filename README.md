@@ -235,8 +235,10 @@ Based on the machine learning insights, I found a clear tendency that listings w
       </tr>
     </table>
 
-Using these findings, I designed a prototype web service that provides hosts with an “insight report” — showing how small upgrades can increase their potential revenue.
-
+Using these findings, I designed a prototype web service that provides hosts with an “insight report” — showing how small upgrades can increase their potential revenue.  
+  
+<img width="2698" height="4302" alt="image" src="https://github.com/user-attachments/assets/37975fd9-9faa-4295-b94f-0b1d216e04c6" />
+  
 Through this service, hosts can:
 - Input their listing details
 - Receive a data-driven recommended price
