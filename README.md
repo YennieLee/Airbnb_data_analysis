@@ -20,11 +20,12 @@ Finally, I designed a **prototype service** to help Airbnb hosts maximize their 
     - **Number of features:** 75
     - **Number of instances:** 11,446
     - **Feature categories and examples:**
-        - **🏠 Listing information :** name, listing_url, room_type, amenities, etc.
-        - **🗺 Location information :** neighbourhood_cleansed, latitude, longitude, etc.
-        - **👤 Host information :** host_name, host_since, host_location, host_is_superhost, host_response_rate, etc.
-        - **💰 Booking and price information :** price, minimum_nights, maximum_nights, availability_30, etc.
-        - **⭐ Review and rating information :** number_of_reviews, review_scores_rating, review_scores_accuracy, review_scores_cleanliness, review_scores_checkin, review_scores_communication, review_scores_location, review_scores_value
+        - **🏠 Listing information  :** name, listing_url, room_type, amenities, etc.
+        - **👤 Host information  :** host_name, host_since, host_location, host_is_superhost, host_response_rate, etc.
+        - **🗺 Location information  :** neighbourhood_cleansed, latitude, longitude, etc.
+        - **⭐ Review and rating information  :** number_of_reviews, review_scores_rating, review_scores_accuracy, etc.
+        - **💰 Booking and price information  :** price, minimum_nights, maximum_nights, availability_30, etc.
+        - ⚙ **System and ID info**  : listing_url, scape_id, etc.
 2. **Web-scraped text data from the official Airbnb host forum**
     - Posts containing the keyword “cleaning”
     - Scrape date: September 2025
