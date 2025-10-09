@@ -96,6 +96,9 @@ These results suggested that many hosts struggle to find trusted cleaning servic
 
 💡 **Action item:** *“Airbnb Clean Partners”*
 
+<img width="2934" height="2160" alt="image" src="https://github.com/user-attachments/assets/0b0ca2a7-2fb6-4fc5-91a8-5eb2e602f253" />
+
+
 A **cleaning company brokerage service** where Airbnb partners with verified cleaning providers.
 
 Hosts can simply select a preferred cleaning company on their dashboard, and Airbnb handles the rest.
@@ -238,9 +241,9 @@ Based on the machine learning insights, I found a clear tendency that listings w
 
 Using these findings, I designed a prototype web service that provides hosts with an “insight report” — showing how small upgrades can increase their potential revenue.  
   
-<img width="2698" height="4302" alt="image" src="https://github.com/user-attachments/assets/37975fd9-9faa-4295-b94f-0b1d216e04c6" />
-  
-Through this service, hosts can:
+  <img width="2934" height="2160" alt="image" src="https://github.com/user-attachments/assets/cfe26113-fdf7-4bb0-9211-a1ac3e61304a" />
+
+**Through this service, hosts can:**
 - Input their listing details
 - Receive a data-driven recommended price
 - Simulate how adding specific amenities would affect profit
